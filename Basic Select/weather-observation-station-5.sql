@@ -1,3 +1,4 @@
+-- hackerrank.com/challenges/weather-observation-station-5
 (SELECT CITY , LENGTH(CITY) AS LEN
 FROM STATION
 ORDER BY LEN ASC, CITY ASC
