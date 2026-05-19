@@ -1,4 +1,4 @@
--- https://www.hackerrank.com/challenges/african-cities/
+-- https://www.hackerrank.com/challenges/african-cities/problem
 
 SELECT CI.NAME
 FROM COUNTRY AS CO
