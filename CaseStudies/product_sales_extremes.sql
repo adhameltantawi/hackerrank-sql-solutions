@@ -36,3 +36,17 @@ SELECT
 	MIN(Sales) OVER (PARTITION BY ProductID) LowestSales
 
 FROM Sales.Orders;
+
+
+-- Find the difference in sales between the current and the lowest sales
+
+SELECT
+	OrderID,
+	ProductID,
+	Sales,
+	MAX(Sales) OVER (PARTITION BY ProductID) HighestSales,
+	MIN(Sales) OVER (PARTITION BY ProductID) LowestSales,
+
+	Sales - MIN(Sales) OVER (PARTITION BY ProductID ORDER BY Sales) AS SalesDiff
+
+FROM Sales.Orders;
