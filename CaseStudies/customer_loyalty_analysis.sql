@@ -2,7 +2,8 @@
 -- rank customers based on the average days between their orders
 SELECT
 	CustomerID,
-	AVG(DaysUntilNextOrder) AvgDays
+	AVG(DaysUntilNextOrder) AvgDays,
+	RANK() OVER(ORDER BY AVG(DaysUntilNextOrder)) RankAvg
 FROM(
 	SELECT 
 		OrderID,
