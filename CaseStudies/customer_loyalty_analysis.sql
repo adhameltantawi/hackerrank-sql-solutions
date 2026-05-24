@@ -3,7 +3,7 @@
 SELECT
 	CustomerID,
 	AVG(DaysUntilNextOrder) AvgDays,
-	RANK() OVER(ORDER BY AVG(DaysUntilNextOrder)) RankAvg
+	RANK() OVER(ORDER BY COALESCE(AVG(DaysUntilNextOrder),9999999)) RankAvg
 FROM(
 	SELECT 
 		OrderID,
