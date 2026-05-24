@@ -4,7 +4,8 @@
 SELECT 
 	OrderID,
 	CustomerID,
-	OrderDate
+	OrderDate CurrentOrder,
+	LEAD(OrderDate) OVER (PARTITION BY CustomerID ORDER BY OrderDate )
 
 FROM Sales.Orders
 ORDER BY CustomerID, OrderDate
