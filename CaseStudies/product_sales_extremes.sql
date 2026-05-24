@@ -12,8 +12,7 @@ SELECT
 FROM Sales.Orders;
 
 
--- Find the lowest and highest sales for each product
-
+----------------------------------------------
 
 SELECT
 	OrderID,
@@ -24,3 +23,16 @@ SELECT
 
 FROM Sales.Orders;
 
+
+
+----------------------------------------------
+
+
+SELECT
+	OrderID,
+	ProductID,
+	Sales,
+	MAX(Sales) OVER (PARTITION BY ProductID) HighestSales,
+	MIN(Sales) OVER (PARTITION BY ProductID) LowestSales
+
+FROM Sales.Orders;
