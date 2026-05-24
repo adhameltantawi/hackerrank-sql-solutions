@@ -22,5 +22,5 @@ SELECT
 	FIRST_VALUE(Sales) OVER (PARTITION BY ProductID ORDER BY Sales DESC) HighestSales,
 	FIRST_VALUE(Sales) OVER (PARTITION BY ProductID ORDER BY Sales ASC ) LowestSales
 
-FROM Sales.Orders
+FROM Sales.Orders;
 
