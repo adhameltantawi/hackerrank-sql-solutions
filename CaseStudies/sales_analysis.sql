@@ -52,3 +52,18 @@ SELECT
 FROM Sales.Products
 )t
 WHERE Price > PriceAvg 
+
+
+
+-- Show the product IDs, product names, prices, and the total number of orders
+
+SELECT 
+	ProductID,
+	Product,
+	Price,
+	(SELECT 
+		COUNT(*) TotalOrders
+	FROM Sales.Orders) AS number_orders
+
+FROM Sales.Products;
+
