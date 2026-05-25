@@ -42,6 +42,7 @@ FROM Sales.Orders
 
 SELECT 
 	ProductID,
+	Price,
 	PriceAvg
 FROM(
 SELECT
@@ -50,4 +51,4 @@ SELECT
 	AVG(Price) OVER () PriceAvg
 FROM Sales.Products
 )t
-WHERE Price > PriceAvg
+WHERE Price > PriceAvg 
