@@ -47,3 +47,16 @@ WHERE CustomerID IN
 				(SELECT CustomerID
 				FROM Sales.Customers 
 				WHERE Country = 'Germany')
+
+
+
+
+-- Show all customer details and find the total orders of each customer
+
+SELECT 
+	*,
+	(SELECT COUNT(*) 
+	FROM Sales.Orders AS S 
+	WHERE S.CustomerID = C.CustomerID) TotalSales
+
+FROM Sales.Customers AS C
