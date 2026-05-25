@@ -60,3 +60,15 @@ SELECT
 	WHERE S.CustomerID = C.CustomerID) TotalSales
 
 FROM Sales.Customers AS C
+
+
+
+-- Show the order details for customers in Germany
+
+SELECT *	
+FROM Sales.Orders AS O
+WHERE EXISTS(
+			SELECT 1
+			FROM Sales.Customers AS C
+			WHERE Country = 'Germany' AND
+			C.CustomerID = O.CustomerID)
