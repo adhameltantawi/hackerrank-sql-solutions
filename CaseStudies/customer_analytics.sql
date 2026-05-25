@@ -85,7 +85,7 @@ WHERE EXISTS(
             SELECT 1
             FROM Sales.Customers AS C
             WHERE Country = 'Germany'
-            AND C.CustomerID = O.CustomerID)
+            AND C.CustomerID = O.CustomerID);
 
 
 
@@ -126,6 +126,19 @@ FROM CTE_Total_Sales
 )
 
 
+-- STEP4: Segment customers based on their total sales
+,CTE_Customer_Segment AS
+(
+SELECT 
+	CustomerID,
+	CASE 
+		WHEN TotalSales > 100 THEN 'High'
+		WHEN TotalSales > 50  THEN 'Medium'
+		ELSE 'Low'
+		END CustomerSegment
+
+FROM CTE_Total_Sales
+)
 
 
 -- Main Query
@@ -135,7 +148,8 @@ SELECT
 	C.LastName,
 	CTS.TotalSales,
 	CLO.Last_Order,
-	CCR.CustomerRank
+	CCR.CustomerRank,
+	CCS.CustomerSegment
 	
 FROM Sales.Customers AS C
 LEFT JOIN CTE_Total_Sales AS CTS
@@ -146,5 +160,8 @@ ON CLO.CustomerID = C.CustomerID
 
 LEFT JOIN CTE_Customer_Rank AS CCR
 ON CCR.CustomerID = C.CustomerID
+
+LEFT JOIN CTE_Customer_Segment AS CCS
+ON CCS.CustomerID = C.CustomerID
 
 ORDER BY CCR.CustomerRank
