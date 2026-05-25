@@ -14,10 +14,10 @@ FROM Sales.Customers
 
 SELECT 
 	*,
-	RANK() OVER(ORDER BY SumOfSales) Rank
+	RANK() OVER(ORDER BY TotalSales DESC) CustomerRank
 FROM(
-SELECT
-	CustomerID,
-	SUM(Sales) SumOfSales
-FROM SALES.Orders
-GROUP BY CustomerID)t
+    SELECT
+	    CustomerID,
+	    SUM(Sales) TotalSales
+    FROM SALES.Orders
+    GROUP BY CustomerID)t
