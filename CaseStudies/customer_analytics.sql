@@ -86,3 +86,34 @@ WHERE EXISTS(
             FROM Sales.Customers AS C
             WHERE Country = 'Germany'
             AND C.CustomerID = O.CustomerID)
+
+
+
+
+-- ================================================
+-- ================================================
+-- ================================================
+
+-- Step1: Find the total sales per customer
+
+WITH CTE_Total_Sales AS
+(
+SELECT
+	CustomerID,
+	SUM(Sales) AS TotalSales
+FROM Sales.Orders
+
+GROUP BY CustomerID
+)
+
+-- Main Query
+SELECT
+	C.CustomerID,
+	C.FirstName,
+	C.LastName,
+	CTS.TotalSales
+	
+FROM Sales.Customers AS C
+
+LEFT JOIN CTE_Total_Sales AS CTS
+ON CTS.CustomerID = C.CustomerID
