@@ -116,6 +116,17 @@ FROM Sales.Orders
 GROUP BY CustomerID
 )
 
+-- STEP3: Rank Customers based on total sales per customer
+,CTE_Customer_Rank AS
+(
+SELECT
+	CustomerID,
+	RANK() OVER (ORDER BY TotalSales DESC)AS CustomerRank
+FROM CTE_Total_Sales
+)
+
+
+
 
 -- Main Query
 SELECT
@@ -123,7 +134,8 @@ SELECT
 	C.FirstName,
 	C.LastName,
 	CTS.TotalSales,
-	CLO.Last_Order
+	CLO.Last_Order,
+	CCR.CustomerRank
 	
 FROM Sales.Customers AS C
 LEFT JOIN CTE_Total_Sales AS CTS
@@ -131,3 +143,8 @@ ON CTS.CustomerID = C.CustomerID
 
 LEFT JOIN CTE_Last_Order AS CLO
 ON CLO.CustomerID = C.CustomerID
+
+LEFT JOIN CTE_Customer_Rank AS CCR
+ON CCR.CustomerID = C.CustomerID
+
+ORDER BY CCR.CustomerRank
