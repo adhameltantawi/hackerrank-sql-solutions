@@ -70,5 +70,5 @@ FROM Sales.Orders AS O
 WHERE EXISTS(
 			SELECT 1
 			FROM Sales.Customers AS C
-			WHERE Country = 'Germany' AND
-			C.CustomerID = O.CustomerID)
+			WHERE Country = 'Germany'
+			AND C.CustomerID = O.CustomerID)
