@@ -106,14 +106,28 @@ FROM Sales.Orders
 GROUP BY CustomerID
 )
 
+-- Step2: Find the last order date per customer
+,CTE_Last_Order AS 
+(
+SELECT
+	CustomerID,
+	MAX(OrderDate) AS Last_Order
+FROM Sales.Orders
+GROUP BY CustomerID
+)
+
+
 -- Main Query
 SELECT
 	C.CustomerID,
 	C.FirstName,
 	C.LastName,
-	CTS.TotalSales
+	CTS.TotalSales,
+	CLO.Last_Order
 	
 FROM Sales.Customers AS C
-
 LEFT JOIN CTE_Total_Sales AS CTS
 ON CTS.CustomerID = C.CustomerID
+
+LEFT JOIN CTE_Last_Order AS CLO
+ON CLO.CustomerID = C.CustomerID
