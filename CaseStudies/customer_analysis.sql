@@ -21,3 +21,19 @@ FROM(
 	    SUM(Sales) TotalSales
     FROM SALES.Orders
     GROUP BY CustomerID)t
+
+
+
+-- Show all customer details and find the total orders for each customer.
+
+SELECT 
+	C.*,
+	O.TotalOrders
+FROM Sales.Customers AS C
+LEFT JOIN (
+		SELECT 
+			CustomerID,
+			COUNT(*) AS TotalOrders
+		FROM Sales.Orders
+		GROUP BY CustomerID) AS O
+ON C.CustomerID = O.CustomerID
