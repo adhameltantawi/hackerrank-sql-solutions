@@ -133,7 +133,7 @@ SELECT
 	CustomerID,
 	CASE 
 		WHEN TotalSales > 100 THEN 'High'
-		WHEN TotalSales > 50  THEN 'Medium'
+		WHEN TotalSales > 80  THEN 'Medium'
 		ELSE 'Low'
 		END CustomerSegment
 
