@@ -36,3 +36,18 @@ SELECT
     Sales - MIN(Sales) OVER () AS DeviationFromMin,
     MAX(Sales) OVER () - Sales AS DeviationFromMax
 FROM Sales.Orders
+
+
+-- Find the products that have a price higher than the average price of all products
+
+SELECT 
+	ProductID,
+	PriceAvg
+FROM(
+SELECT
+	ProductID,
+	Price,
+	AVG(Price) OVER () PriceAvg
+FROM Sales.Products
+)t
+WHERE Price > PriceAvg
