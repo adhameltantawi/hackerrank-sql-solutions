@@ -38,3 +38,36 @@ FROM (
     FROM Sales.OrdersArchive
 ) t
 WHERE CheckDuplicates > 1
+
+
+
+
+-- Show the employee hierarchy by displaying each employee's level within the organization.
+
+WITH CTE_Emp_Hierarchy AS
+(
+SELECT 
+	EmployeeID,
+	FirstName,
+	ManagerID,
+	1 AS Level
+FROM Sales.Employees
+WHERE ManagerID IS NULL
+
+UNION ALL
+
+SELECT
+	E.EmployeeID,
+	E.FirstName,
+	E.ManagerID,
+	Level + 1
+
+FROM Sales.Employees AS E
+INNER JOIN CTE_Emp_Hierarchy AS CEH
+ON E.ManagerID = CEH.EmployeeID 
+ 
+) 
+
+SELECT 
+	*
+FROM CTE_Emp_Hierarchy
