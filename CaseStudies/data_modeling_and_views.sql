@@ -1,4 +1,5 @@
 -- Provide a view that combines details from orders, products, customers, and employees.
+
 CREATE VIEW Sales.V_Order_Details AS 
 (
 
