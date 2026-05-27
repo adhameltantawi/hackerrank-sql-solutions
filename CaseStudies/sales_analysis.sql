@@ -154,6 +154,10 @@ FROM(
 
 -- find the running total of sales for each month
 
+IF OBJECT_ID ('Sales.V_Monthly_Summary', 'V') IS NOT NULL
+	DROP VIEW Sales.V_Monthly_Summary;
+GO
+
 CREATE VIEW Sales.V_Monthly_Summary AS 
 (
 SELECT 
@@ -166,10 +170,11 @@ FROM Sales.Orders
 GROUP BY DATETRUNC(month,OrderDate)
 )
 
+
 SELECT 
 	OrderMonth,
 	TotalSales,
 	SUM(TotalSales) OVER (ORDER BY OrderMonth) AS RunningTotal
 
-FROM V_Monthly_Summary
+FROM Sales.V_Monthly_Summary
 
