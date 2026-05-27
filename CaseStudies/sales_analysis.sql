@@ -154,7 +154,7 @@ FROM(
 
 -- find the running total of sales for each month
 
-CREATE VIEW V_Monthly_Summary AS 
+CREATE VIEW Sales.V_Monthly_Summary AS 
 (
 SELECT 
 	DATETRUNC(month,OrderDate) OrderMonth,
