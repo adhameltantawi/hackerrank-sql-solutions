@@ -150,3 +150,26 @@ FROM(
     FROM Sales.Orders
     GROUP BY MONTH(OrderDate)
 )t
+
+
+-- find the running total of sales for each month
+
+CREATE VIEW V_Monthly_Summary AS 
+(
+SELECT 
+	DATETRUNC(month,OrderDate) OrderMonth,
+	SUM(Sales) TotalSales,
+	COUNT(OrderID) TotalOrders,
+	SUM(Quantity) TotalQuantitys
+FROM Sales.Orders
+
+GROUP BY DATETRUNC(month,OrderDate)
+)
+
+SELECT 
+	OrderMonth,
+	TotalSales,
+	SUM(TotalSales) OVER (ORDER BY OrderMonth) AS RunningTotal
+
+FROM V_Monthly_Summary
+
