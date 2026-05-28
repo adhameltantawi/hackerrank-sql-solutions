@@ -9,12 +9,20 @@ BEGIN
 DECLARE @TotalCustomers INT, @AvgScore FLOAT;
 
 -- Prepare & Cleanup Data
-IF
+
+
+IF EXISTS(SELECT 1 FROM Sales.Customers WHERE SCORE IS NULL AND Country = @Country)
 BEGIN
+	PRINT('Updating NULL Scores to 0');
+	UPDATE Sales.Customers
+	SET Score = 0
+	WHERE Score IS NULL AND Country = @Country;
 END
+
 ELSE
 BEGIN
-END
+	PRINT('No NULL Scores found')
+END;
 
 
 
