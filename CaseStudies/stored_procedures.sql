@@ -5,11 +5,17 @@
 CREATE PROCEDURE GetCustomerSummary @Country NVARCHAR(50) = 'USA'
 AS 
 BEGIN
+
+DECLARE @TotalCustomers INT, @AvgScore FLOAT;
+
 SELECT 
-	COUNT(*) TotalCustomers,
-	AVG(Score) AvgScore
+	@TotalCustomers = COUNT(*),
+	@AvgScore = AVG(Score) 
 FROM Sales.Customers
 WHERE Country = @Country;
+
+PRINT 'Total Customers from ' + @Country+ ': ' +  CAST(@TotalCustomers AS VARCHAR);
+PRINT 'Average Score from ' + @Country+ ': ' +  CAST(@AvgScore AS VARCHAR) ;
 
 SELECT
 	COUNT(OrderID) TotalOrders,
