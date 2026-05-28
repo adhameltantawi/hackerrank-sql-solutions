@@ -8,6 +8,17 @@ BEGIN
 
 DECLARE @TotalCustomers INT, @AvgScore FLOAT;
 
+-- Prepare & Cleanup Data
+IF
+BEGIN
+END
+ELSE
+BEGIN
+END
+
+
+
+-- Generating Reports
 SELECT 
 	@TotalCustomers = COUNT(*),
 	@AvgScore = AVG(Score) 
