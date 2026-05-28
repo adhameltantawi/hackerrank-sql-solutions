@@ -5,6 +5,7 @@
 CREATE PROCEDURE GetCustomerSummary @Country NVARCHAR(50) = 'USA'
 AS 
 BEGIN
+BEGIN TRY
 
 DECLARE @TotalCustomers INT, @AvgScore FLOAT;
 
@@ -45,6 +46,15 @@ JOIN Sales.Customers AS C
 ON O.CustomerID = C.CustomerID
 
 WHERE Country = @country; 
+
+END TRY
+BEGIN CATCH
+	PRINT('An error occured');
+	PRINT('Error Message: ' + ERROR_MESSAGE());
+	PRINT('Error Number: ' + CAST(ERROR_NUMBER() AS VARCHAR));
+	PRINT('Error Line: ' + CAST(ERROR_LINE() AS VARCHAR))
+	PRINT('Error Procedure: ' + ERROR_PROCEDURE())
+END CATCH
 
 END
 GO
